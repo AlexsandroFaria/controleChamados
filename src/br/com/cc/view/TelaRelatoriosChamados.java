@@ -5,11 +5,17 @@
  */
 package br.com.cc.view;
 
+import br.com.cc.connection.ConnectionFactory;
 import br.com.cc.dao.ChamadoDao;
 import br.com.cc.dao.ChamadoFechadoDao;
 import br.com.cc.tableModel.TabelaModeloChamado;
 import br.com.cc.tableModel.TabelaModeloChamadoConsulta;
 import br.com.cc.tableModel.TabelaModeloChamadosFechados;
+import java.sql.Connection;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -20,6 +26,9 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
     /**
      * Creates new form TelaConsultarChamados
      */
+    
+    private Connection con;
+    
     public TelaRelatoriosChamados() {
         initComponents();
         setLocationRelativeTo(null);
@@ -41,11 +50,11 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaConsultaChamados = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txtConsultaContrato = new javax.swing.JTextField();
+        btConsuktaChamadosFechados = new javax.swing.JButton();
+        btGerarRelatorioChamadoFechado = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        txtConsultaPorNumeroChamado = new javax.swing.JTextField();
+        btConsultaChamados = new javax.swing.JButton();
+        btGerarRelatorioChamados = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         comboConsultaSItuacao = new javax.swing.JComboBox<>();
         btPesquisar = new javax.swing.JButton();
@@ -116,15 +125,23 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabelaConsultaChamados);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consulta por Contrato", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chamados encerrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
-        jLabel3.setText("Número do Contrato:");
+        btConsuktaChamadosFechados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btConsuktaChamadosFechados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
+        btConsuktaChamadosFechados.setText("Consultar Chamados");
+        btConsuktaChamadosFechados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsuktaChamadosFechadosActionPerformed(evt);
+            }
+        });
 
-        txtConsultaContrato.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtConsultaContratoKeyPressed(evt);
+        btGerarRelatorioChamadoFechado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btGerarRelatorioChamadoFechado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/relatorio.png"))); // NOI18N
+        btGerarRelatorioChamadoFechado.setText("Gerar Relatorio");
+        btGerarRelatorioChamadoFechado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerarRelatorioChamadoFechadoActionPerformed(evt);
             }
         });
 
@@ -134,30 +151,38 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(txtConsultaContrato, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btConsuktaChamadosFechados)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btGerarRelatorioChamadoFechado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtConsultaContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btConsuktaChamadosFechados)
+                    .addComponent(btGerarRelatorioChamadoFechado))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consulta por Número do chamado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chamados Abertos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
-        jLabel4.setText("Número do Chamado:");
+        btConsultaChamados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btConsultaChamados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
+        btConsultaChamados.setText("Consultar Chamados");
+        btConsultaChamados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultaChamadosActionPerformed(evt);
+            }
+        });
 
-        txtConsultaPorNumeroChamado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtConsultaPorNumeroChamadoKeyPressed(evt);
+        btGerarRelatorioChamados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btGerarRelatorioChamados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/relatorio.png"))); // NOI18N
+        btGerarRelatorioChamados.setText("Gerar Relatório");
+        btGerarRelatorioChamados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerarRelatorioChamadosActionPerformed(evt);
             }
         });
 
@@ -167,18 +192,18 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(txtConsultaPorNumeroChamado, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btConsultaChamados)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btGerarRelatorioChamados)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtConsultaPorNumeroChamado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btConsultaChamados)
+                    .addComponent(btGerarRelatorioChamados))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -248,13 +273,13 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtConsultaData, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(19, 19, 19)
                 .addComponent(btPesquisarDataChamados)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,13 +332,12 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtConsultaDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btPesquisarFechamentoPorData)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btPesquisarFechamentoPorData))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,19 +393,22 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtInicioData, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFimData, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btPesquisarDataFechamento)
-                .addGap(18, 18, 18)
-                .addComponent(btLimparCampoPesquisaDataFechamento)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtInicioData, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFimData, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(btPesquisarDataFechamento)
+                        .addGap(18, 18, 18)
+                        .addComponent(btLimparCampoPesquisaDataFechamento)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,8 +418,10 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
                     .addComponent(txtInicioData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtFimData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPesquisarDataFechamento)
-                    .addComponent(jLabel7)
                     .addComponent(btLimparCampoPesquisaDataFechamento))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -402,29 +431,29 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,9 +463,9 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -445,8 +474,8 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -480,18 +509,6 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtConsultaDataFechamentoKeyPressed
 
-    private void txtConsultaPorNumeroChamadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConsultaPorNumeroChamadoKeyPressed
-        // TODO add your handling code here:
-        String numeroChamado = txtConsultaPorNumeroChamado.getText();
-        tabelaConsultaChamados.setModel(new TabelaModeloChamadoConsulta(new ChamadoDao().listarChamadoTabelaPorNumeroChamado(numeroChamado)));
-    }//GEN-LAST:event_txtConsultaPorNumeroChamadoKeyPressed
-
-    private void txtConsultaContratoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConsultaContratoKeyPressed
-        // TODO add your handling code here:
-        String contrato = txtConsultaContrato.getText();
-        tabelaConsultaChamados.setModel(new TabelaModeloChamadoConsulta(new ChamadoDao().listarChamadoTabelaPorContrato(contrato)));        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConsultaContratoKeyPressed
-
     private void btPesquisarDataFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarDataFechamentoActionPerformed
         // TODO add your handling code here:
         String dataInicio =  txtInicioData.getText();
@@ -517,6 +534,48 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
         String data = txtConsultaDataFechamento.getText();
         tabelaConsultaChamados.setModel(new TabelaModeloChamadosFechados(new ChamadoDao().listarChamadoTabelaPorDataFechamento(data)));
     }//GEN-LAST:event_btPesquisarFechamentoPorDataActionPerformed
+
+    private void btGerarRelatorioChamadoFechadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarRelatorioChamadoFechadoActionPerformed
+        // TODO add your handling code here:
+        con =  new ConnectionFactory().getConnection();
+        
+        String src = "chamados_fechados.jasper";
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(src, null, con);
+        } catch (JRException ex) {
+            System.err.println("Erro: " + ex);
+        }
+        
+        JasperViewer view = new JasperViewer(jasperPrint, false);
+        view.setVisible(true);
+    }//GEN-LAST:event_btGerarRelatorioChamadoFechadoActionPerformed
+
+    private void btConsuktaChamadosFechadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsuktaChamadosFechadosActionPerformed
+        // TODO add your handling code here:
+        tabelaConsultaChamados.setModel(new TabelaModeloChamadosFechados(new ChamadoFechadoDao().listarChamadosFechadosTabela()));
+    }//GEN-LAST:event_btConsuktaChamadosFechadosActionPerformed
+
+    private void btGerarRelatorioChamadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarRelatorioChamadosActionPerformed
+        // TODO add your handling code here:
+        con =  new ConnectionFactory().getConnection();
+        
+        String src = "ChamadosAbertos.jasper";
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(src, null, con);
+        } catch (JRException ex) {
+            System.err.println("Erro: " + ex);
+        }
+        
+        JasperViewer view = new JasperViewer(jasperPrint, false);
+        view.setVisible(true);
+    }//GEN-LAST:event_btGerarRelatorioChamadosActionPerformed
+
+    private void btConsultaChamadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaChamadosActionPerformed
+        // TODO add your handling code here:
+        tabelaConsultaChamados.setModel(new TabelaModeloChamadoConsulta(new ChamadoDao().listarChamadoTabela()));
+    }//GEN-LAST:event_btConsultaChamadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -555,6 +614,10 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btConsuktaChamadosFechados;
+    private javax.swing.JButton btConsultaChamados;
+    private javax.swing.JButton btGerarRelatorioChamadoFechado;
+    private javax.swing.JButton btGerarRelatorioChamados;
     private javax.swing.JButton btLimparCampoPesquisaDataFechamento;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btPesquisarDataChamados;
@@ -564,8 +627,6 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -579,10 +640,8 @@ public class TelaRelatoriosChamados extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaConsultaChamados;
-    private javax.swing.JTextField txtConsultaContrato;
     private javax.swing.JFormattedTextField txtConsultaData;
     private javax.swing.JFormattedTextField txtConsultaDataFechamento;
-    private javax.swing.JTextField txtConsultaPorNumeroChamado;
     private javax.swing.JFormattedTextField txtFimData;
     private javax.swing.JFormattedTextField txtInicioData;
     // End of variables declaration//GEN-END:variables
