@@ -72,7 +72,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Arquivo");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+        menuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuSair.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/sair.png"))); // NOI18N
         menuSair.setText("Sair");
         menuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +88,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Clientes");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+        menuNovoCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuNovoCliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuNovoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/tela_cliente.png"))); // NOI18N
         menuNovoCliente.setText("Novo Cliente");
         menuNovoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +101,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(menuNovoCliente);
 
+        menuConsultarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuConsultarCliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuConsultarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
         menuConsultarCliente.setText("Consultar Cliente");
         menuConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +115,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         menuRelatorios.setText("Chamados");
+        menuRelatorios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+        menuNovoChamado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuNovoChamado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuNovoChamado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/cadastro_chamados.png"))); // NOI18N
         menuNovoChamado.setText("Novo Chamado");
         menuNovoChamado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +128,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuRelatorios.add(menuNovoChamado);
 
+        menuConsultarChamado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuConsultarChamado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuConsultarChamado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
         menuConsultarChamado.setText("Consultar Chamado");
         menuConsultarChamado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +139,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuRelatorios.add(menuConsultarChamado);
 
+        menuFecharChamado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuFecharChamado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuFecharChamado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fechar_chamado.png"))); // NOI18N
         menuFecharChamado.setText("Fechar Chamado");
         menuFecharChamado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +150,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuRelatorios.add(menuFecharChamado);
 
+        menuConsultarChamadosFechados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuConsultarChamadosFechados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuConsultarChamadosFechados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
         menuConsultarChamadosFechados.setText("Consultar Chamados Fechados");
         menuConsultarChamadosFechados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +161,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuRelatorios.add(menuConsultarChamadosFechados);
 
+        menuConsultar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuConsultar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/relatorio.png"))); // NOI18N
         menuConsultar.setText("Relatórios");
         menuConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +175,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuRelatorios);
 
         jMenu4.setText("Usuários");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+        menuNovoUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuNovoUsuario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuNovoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/usuarios.png"))); // NOI18N
         menuNovoUsuario.setText("Novo Usuário");
         menuNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,8 +191,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Ajuda");
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+        menuSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuSobre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        menuSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ajuda.png"))); // NOI18N
         menuSobre.setText("Sobre");
+        menuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSobreActionPerformed(evt);
+            }
+        });
         jMenu5.add(menuSobre);
 
         jMenuBar1.add(jMenu5);
@@ -245,6 +285,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaFecharChamado.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuConsultarChamadosFechadosActionPerformed
+
+    private void menuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSobreActionPerformed
+        // TODO add your handling code here:
+        TelaSobre telaSobre = new TelaSobre();
+        telaSobre.setVisible(true);
+    }//GEN-LAST:event_menuSobreActionPerformed
 
     /**
      * @param args the command line arguments
