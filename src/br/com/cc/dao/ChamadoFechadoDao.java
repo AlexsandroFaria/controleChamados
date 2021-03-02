@@ -15,13 +15,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+
 /**
  *
  * @author alafaria
  */
 public class ChamadoFechadoDao {
-    
+
     private Connection con;
     private PreparedStatement stmt;
     private ResultSet rs;
@@ -43,40 +43,39 @@ public class ChamadoFechadoDao {
             stmt.setString(6, chamadosFechados.getDataFechamento());
             stmt.execute();
             stmt.close();
-            JOptionPane.showMessageDialog(null, "Chamado " + chamadosFechados.getNumeroChamado() +" encerrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Chamado " + chamadosFechados.getNumeroChamado() + " encerrado com sucesso!");
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar o chamado fechado");
             throw new RuntimeException(sqle);
         }
     }
-    
-    public ArrayList<Chamado> listarChamadosFechadosPorNumeroChamado(String numeroChamado){
+
+    public ArrayList<Chamado> listarChamadosFechadosPorNumeroChamado(String numeroChamado) {
         String sql = "select * from chamados where numero_chamado = " + numeroChamado;
         ArrayList<Chamado> lista = new ArrayList<>();
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            if (rs.next()){
+            if (rs.next()) {
                 Chamado chamado = new Chamado();
                 chamado.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamado.setContrato(rs.getInt("contrato"));
                 chamado.setNomeCliente(rs.getString("nome_cliente"));
                 lista.add(chamado);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Chamado não encontrado! Tente novamente!.", "AVISO", JOptionPane.WARNING_MESSAGE);
             }
-            
+
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "Erro ao efetuar consulta!");
             throw new RuntimeException(sqle);
         }
         return lista;
     }
-    
-    
-    public ArrayList<ChamadosFechados> listarChamadosFechadosTabela(){
+
+    public ArrayList<ChamadosFechados> listarChamadosFechadosTabela() {
         String sql = "select * from fechar_chamado";
-        ArrayList<ChamadosFechados>lista = new ArrayList<>();
+        ArrayList<ChamadosFechados> lista = new ArrayList<>();
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);
@@ -89,7 +88,7 @@ public class ChamadoFechadoDao {
                 chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
                 chamadosFechados.setStatus(rs.getString("status"));
                 chamadosFechados.setDataFechamento(rs.getString("data"));
-                lista.add(chamadosFechados);   
+                lista.add(chamadosFechados);
             }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "Erro ao efetuar consulta na tabela");
@@ -104,7 +103,7 @@ public class ChamadoFechadoDao {
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 ChamadosFechados chamadosFechados = new ChamadosFechados();
                 chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamadosFechados.setContrato(rs.getInt("contrato"));
@@ -120,5 +119,51 @@ public class ChamadoFechadoDao {
         }
         return lista;
     }
-    
+
+    public ArrayList<ChamadosFechados> consultarChamadosFechadosPorNumeroChamado(String numeroChamado) {
+        String sql = "select * from fechar_chamado where numero_chamado like '%" + numeroChamado + "%'";
+        ArrayList<ChamadosFechados> lista = new ArrayList<>();
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                ChamadosFechados chamadosFechados = new ChamadosFechados();
+                chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
+                chamadosFechados.setContrato(rs.getInt("contrato"));
+                chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
+                chamadosFechados.setStatus(rs.getString("status"));
+                chamadosFechados.setDataFechamento(rs.getString("data"));
+                lista.add(chamadosFechados);
+            }
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, "Erro na consulta!");
+            throw new RuntimeException(sqle);
+        }
+        return lista;
+    }
+
+    public ArrayList<ChamadosFechados> consultarChamadosFechadosPorNumeroContrato(String numeroContrato) {
+        String sql = "select * from fechar_chamado where contrato like '%" + numeroContrato + "%'";
+        ArrayList<ChamadosFechados> lista = new ArrayList<>();
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                ChamadosFechados chamadosFechados = new ChamadosFechados();
+                chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
+                chamadosFechados.setContrato(rs.getInt("contrato"));
+                chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
+                chamadosFechados.setStatus(rs.getString("status"));
+                chamadosFechados.setDataFechamento(rs.getString("data"));
+                lista.add(chamadosFechados);
+            }
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, "Erro na consulta!");
+            throw new RuntimeException(sqle);
+        }
+        return lista;
+    }
+
 }

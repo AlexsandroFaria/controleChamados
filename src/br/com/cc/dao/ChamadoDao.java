@@ -166,7 +166,12 @@ public class ChamadoDao {
                 chamado.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamado.setContrato(rs.getInt("contrato"));
                 chamado.setNomeCliente(rs.getString("nome_cliente"));
-                //chamado.setObservacao(rs.getString("observacao"));
+                chamado.setEndereco(rs.getString("endereco"));
+                chamado.setContato(rs.getString("contato"));
+                chamado.setTelefone(rs.getString("telefone"));
+                chamado.setEmail(rs.getString("email"));
+                chamado.setProblema(rs.getString("problema"));
+                chamado.setObservacao(rs.getString("observacao"));
                 chamado.setStatus(rs.getString("status"));
                 chamado.setData(rs.getString("data"));
                 lista.add(chamado);

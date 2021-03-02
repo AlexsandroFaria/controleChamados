@@ -27,6 +27,7 @@ public class TelaChamados extends javax.swing.JFrame {
      * Creates new form TelaCadastroChamados
      */
     TelaFecharChamado enviar;
+    TelaClientes enviarContrato;
     ChamadoDao chamadoDao = new ChamadoDao();
     Utilitarios utilitario = new Utilitarios();
 
@@ -382,6 +383,11 @@ public class TelaChamados extends javax.swing.JFrame {
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/pesquisar.png"))); // NOI18N
         jLabel15.setText("Número Chamado:");
 
+        txtConsultaNumeroChamado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConsultaNumeroChamadoActionPerformed(evt);
+            }
+        });
         txtConsultaNumeroChamado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtConsultaNumeroChamadoKeyPressed(evt);
@@ -592,6 +598,7 @@ public class TelaChamados extends javax.swing.JFrame {
                     btAlterar.setEnabled(false);
                     btExcluir.setEnabled(false);
                     txtContrato.setEnabled(true);
+                    jtChamados.setSelectedIndex(1);
                 }
             }
         } catch (Exception erro) {
@@ -604,13 +611,19 @@ public class TelaChamados extends javax.swing.JFrame {
     private void btLimparTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparTelaActionPerformed
         // TODO add your handling code here:
         limparCampos();
+        btCadastrar.setEnabled(true);
     }//GEN-LAST:event_btLimparTelaActionPerformed
 
     private void btCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarClienteActionPerformed
         // TODO add your handling code here:
-        TelaClientes telaClientes = new TelaClientes();
-        telaClientes.setVisible(true);
-        this.dispose();
+        if (enviarContrato == null) {
+            enviarContrato = new TelaClientes();
+            enviarContrato.setVisible(true);
+            enviarContrato.receberDadosChamadosContrato(txtContrato.getText());
+            this.dispose();
+        } else {
+
+        }
     }//GEN-LAST:event_btCadastrarClienteActionPerformed
 
     private void tabelaChamadosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaChamadosKeyPressed
@@ -636,6 +649,7 @@ public class TelaChamados extends javax.swing.JFrame {
         btExcluir.setEnabled(true);
         btFecharChamado.setEnabled(true);
         txtContrato.setEnabled(false);
+        btCadastrar.setEnabled(false);
     }//GEN-LAST:event_tabelaChamadosMouseClicked
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -650,6 +664,8 @@ public class TelaChamados extends javax.swing.JFrame {
         btExcluir.setEnabled(false);
         btAlterar.setEnabled(false);
         btFecharChamado.setEnabled(false);
+        btCadastrar.setEnabled(true);
+        jtChamados.setSelectedIndex(1);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
@@ -683,6 +699,9 @@ public class TelaChamados extends javax.swing.JFrame {
             btAlterar.setEnabled(false);
             btExcluir.setEnabled(false);
             txtContrato.setEnabled(true);
+            btCadastrar.setEnabled(true);
+            jtChamados.setSelectedIndex(1);
+            jtChamados.setSelectedIndex(1);
         }
 
     }//GEN-LAST:event_btAlterarActionPerformed
@@ -700,8 +719,6 @@ public class TelaChamados extends javax.swing.JFrame {
             enviar.setVisible(true);
             enviar.receberDadosChamados(txtNumeroChamado.getText(), txtContrato.getText(), txtNomeCliente.getText());
             this.dispose();
-        } else {
-
         }
     }//GEN-LAST:event_btFecharChamadoActionPerformed
 
@@ -715,6 +732,10 @@ public class TelaChamados extends javax.swing.JFrame {
         //setar a data formatada
         txtData.setText(formatterData.format(agora));
     }//GEN-LAST:event_btDataAtualActionPerformed
+
+    private void txtConsultaNumeroChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsultaNumeroChamadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConsultaNumeroChamadoActionPerformed
 
     /**
      * @param args the command line arguments

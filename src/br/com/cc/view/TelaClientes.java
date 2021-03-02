@@ -473,10 +473,12 @@ public class TelaClientes extends javax.swing.JFrame {
                     cliente.setTelefone(txtTelefone.getText());
                     cliente.setEmail(txtEmail.getText());
                     clienteDao.cadastrarClientes(contrato, cliente);
+                    utilitario.limpaTela(jPanel2);
+                    atualizarTabelaClientes();
+                    jtCadastroCliente.setSelectedIndex(1);
+                    txtContrato.setEnabled(true);
                 }
             }
-            utilitario.limpaTela(jPanel2);
-            atualizarTabelaClientes();
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário!");
             throw new RuntimeException(erro);
@@ -489,6 +491,8 @@ public class TelaClientes extends javax.swing.JFrame {
         utilitario.limpaTela(jPanel2);
         btAlterarCliente.setEnabled(false);
         btExcluir.setEnabled(false);
+        btCadastrarCliente.setEnabled(true);
+        txtContrato.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
@@ -502,6 +506,7 @@ public class TelaClientes extends javax.swing.JFrame {
         txtEmail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), TabelaModeloClientes.COLUNA_EMAIL).toString());
         btAlterarCliente.setEnabled(true);
         btExcluir.setEnabled(true);
+        btCadastrarCliente.setEnabled(false);
     }//GEN-LAST:event_tabelaClientesMouseClicked
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -514,7 +519,7 @@ public class TelaClientes extends javax.swing.JFrame {
             utilitario.limpaTela(jPanel2);
             btExcluir.setEnabled(false);
             btAlterarCliente.setEnabled(false);
-
+            btCadastrarCliente.setEnabled(true);
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
@@ -546,11 +551,14 @@ public class TelaClientes extends javax.swing.JFrame {
             chamado.setTelefone(txtTelefone.getText());
             chamado.setEmail(txtEmail.getText());
             chamadoDao.alterarChamadoConjuntoCliente(chamado);
+
+            utilitario.limpaTela(jPanel2);
+            atualizarTabelaClientes();
+            btExcluir.setEnabled(false);
+            btAlterarCliente.setEnabled(false);
+            btCadastrarCliente.setEnabled(true);
+            jtCadastroCliente.setSelectedIndex(1);
         }
-        utilitario.limpaTela(jPanel2);
-        atualizarTabelaClientes();
-        btExcluir.setEnabled(false);
-        btAlterarCliente.setEnabled(false);
     }//GEN-LAST:event_btAlterarClienteActionPerformed
 
 
@@ -662,4 +670,9 @@ public class TelaClientes extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+
+    void receberDadosChamadosContrato(String text) {
+        txtContrato.setText(text);
+        txtContrato.setEnabled(false);
+    }
 }
