@@ -274,6 +274,7 @@ public class ChamadoDao {
                 chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamadosFechados.setContrato(rs.getInt("contrato"));
                 chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setProblema(rs.getString("problema"));
                 chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
                 chamadosFechados.setStatus(rs.getString("status"));
                 chamadosFechados.setDataFechamento(rs.getString("data"));
@@ -287,7 +288,7 @@ public class ChamadoDao {
     }
 
     public ArrayList<ChamadosFechados> listarChamadoPorPeriodoData(String dataInicio, String dataFim) {
-        String sql = "select numero_chamado, contrato, nome_cliente, fechamento, status, data from fechar_chamado where data between ? and ?";
+        String sql = "select numero_chamado, contrato, nome_cliente, problema, fechamento, status, data from fechar_chamado where data between ? and ?";
         ArrayList<ChamadosFechados> lista = new ArrayList<>();
 
         try {
@@ -301,6 +302,7 @@ public class ChamadoDao {
                 chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamadosFechados.setContrato(rs.getInt("contrato"));
                 chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setProblema(rs.getString("problema"));
                 chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
                 chamadosFechados.setStatus(rs.getString("status"));
                 chamadosFechados.setDataFechamento(rs.getString("data"));

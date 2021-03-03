@@ -32,15 +32,16 @@ public class ChamadoFechadoDao {
     }
 
     public void cadastrarChamadoFechado(ChamadosFechados chamadosFechados) {
-        String sql = "insert into fechar_chamado (numero_chamado, contrato, nome_cliente, fechamento, status, data) values (?, ?, ?, ?, ?, ?)";
+        String sql = "insert into fechar_chamado (numero_chamado, contrato, nome_cliente, problema, fechamento, status, data) values (?, ?, ?, ?, ?, ?, ?)";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, chamadosFechados.getNumeroChamado());
             stmt.setInt(2, chamadosFechados.getContrato());
             stmt.setString(3, chamadosFechados.getNomeCliente());
-            stmt.setString(4, chamadosFechados.getMensagemFechamento());
-            stmt.setString(5, chamadosFechados.getStatus());
-            stmt.setString(6, chamadosFechados.getDataFechamento());
+            stmt.setString(4, chamadosFechados.getProblema());
+            stmt.setString(5, chamadosFechados.getMensagemFechamento());
+            stmt.setString(6, chamadosFechados.getStatus());
+            stmt.setString(7, chamadosFechados.getDataFechamento());
             stmt.execute();
             stmt.close();
             JOptionPane.showMessageDialog(null, "Chamado " + chamadosFechados.getNumeroChamado() + " encerrado com sucesso!");
@@ -61,6 +62,7 @@ public class ChamadoFechadoDao {
                 chamado.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamado.setContrato(rs.getInt("contrato"));
                 chamado.setNomeCliente(rs.getString("nome_cliente"));
+                chamado.setProblema(rs.getString("problema"));
                 lista.add(chamado);
             } else {
                 JOptionPane.showMessageDialog(null, "Chamado não encontrado! Tente novamente!.", "AVISO", JOptionPane.WARNING_MESSAGE);
@@ -85,6 +87,7 @@ public class ChamadoFechadoDao {
                 chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamadosFechados.setContrato(rs.getInt("contrato"));
                 chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setProblema(rs.getString("problema"));
                 chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
                 chamadosFechados.setStatus(rs.getString("status"));
                 chamadosFechados.setDataFechamento(rs.getString("data"));
@@ -108,6 +111,7 @@ public class ChamadoFechadoDao {
                 chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamadosFechados.setContrato(rs.getInt("contrato"));
                 chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setProblema(rs.getString("problema"));
                 chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
                 chamadosFechados.setStatus(rs.getString("status"));
                 chamadosFechados.setDataFechamento(rs.getString("data"));
@@ -131,6 +135,7 @@ public class ChamadoFechadoDao {
                 chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamadosFechados.setContrato(rs.getInt("contrato"));
                 chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setProblema(rs.getString("problema"));
                 chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
                 chamadosFechados.setStatus(rs.getString("status"));
                 chamadosFechados.setDataFechamento(rs.getString("data"));
@@ -154,6 +159,7 @@ public class ChamadoFechadoDao {
                 chamadosFechados.setNumeroChamado(rs.getInt("numero_chamado"));
                 chamadosFechados.setContrato(rs.getInt("contrato"));
                 chamadosFechados.setNomeCliente(rs.getString("nome_cliente"));
+                chamadosFechados.setProblema(rs.getString("problema"));
                 chamadosFechados.setMensagemFechamento(rs.getString("fechamento"));
                 chamadosFechados.setStatus(rs.getString("status"));
                 chamadosFechados.setDataFechamento(rs.getString("data"));

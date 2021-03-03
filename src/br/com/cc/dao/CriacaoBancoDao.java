@@ -80,6 +80,7 @@ public class CriacaoBancoDao {
                     + "numero_chamado int(11) not null,\n"
                     + "contrato int(11) not null,\n"
                     + "nome_cliente varchar(100) default null,\n"
+                    + "problema varchar(255) default null,\n"
                     + "fechamento varchar(255) default null,\n"
                     + "status varchar(100) default null,\n"
                     + "data varchar(11) default null,\n"

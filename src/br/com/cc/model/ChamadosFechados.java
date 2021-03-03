@@ -15,6 +15,7 @@ public class ChamadosFechados{
     private int numeroChamado;
     private int contrato;
     private String nomeCliente;
+    private String problema;
     private String mensagemFechamento;
     private String status;
     private String dataFechamento; 
@@ -74,5 +75,14 @@ public class ChamadosFechados{
     public void setDataFechamento(String dataFechamento) {
         this.dataFechamento = dataFechamento;
     }
-    
+
+    public String getProblema() {
+        return problema;
+    }
+
+    public void setProblema(String problema) {
+        this.problema = problema;
+    }
 }
+
+

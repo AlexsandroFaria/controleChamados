@@ -31,10 +31,11 @@ public class TelaFecharChamado extends javax.swing.JFrame {
         tabelaFechamentoChamados.setModel(new TabelaModeloChamadosFechados(new ChamadoFechadoDao().listarChamadosFechadosTabela()));
     }
 
-    void receberDadosChamados(String text1, String text2, String text3) {
+    void receberDadosChamados(String text1, String text2, String text3, String text4) {
         txtNumeroChamado.setText(text1);
         txtContrato.setText(text2);
         txtNomeCliente.setText(text3);
+        txtProblema.setText(text4);
         txtNumeroChamado.setEnabled(false);
         txtContrato.setEnabled(false);
         txtNomeCliente.setEnabled(false);
@@ -48,6 +49,7 @@ public class TelaFecharChamado extends javax.swing.JFrame {
         txtNumeroChamado.setText("");
         txtContrato.setText("");
         txtNomeCliente.setText("");
+        txtProblema.setText("");
         txtMensEncerramento.setText("");
         comboStatus.setSelectedItem("Selecione uma opção");
         txtData.setText("");
@@ -81,7 +83,10 @@ public class TelaFecharChamado extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         btDataAtual = new javax.swing.JButton();
         btConsultarChamado = new javax.swing.JButton();
-        txtMensEncerramento = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtMensEncerramento = new javax.swing.JTextArea();
+        jLabel10 = new javax.swing.JLabel();
+        txtProblema = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaFechamentoChamados = new javax.swing.JTable();
@@ -179,6 +184,15 @@ public class TelaFecharChamado extends javax.swing.JFrame {
             }
         });
 
+        txtMensEncerramento.setColumns(20);
+        txtMensEncerramento.setRows(5);
+        jScrollPane1.setViewportView(txtMensEncerramento);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText("Problema:");
+
+        txtProblema.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -203,11 +217,13 @@ public class TelaFecharChamado extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel10))
                                 .addGap(44, 44, 44)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                                    .addComponent(txtMensEncerramento)))
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(txtProblema)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -253,8 +269,12 @@ public class TelaFecharChamado extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addGap(8, 8, 8)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(txtProblema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(txtMensEncerramento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -447,6 +467,7 @@ public class TelaFecharChamado extends javax.swing.JFrame {
                 chamadosFechados.setNumeroChamado(Integer.parseInt(txtNumeroChamado.getText()));
                 chamadosFechados.setContrato(Integer.parseInt(txtContrato.getText()));
                 chamadosFechados.setNomeCliente(txtNomeCliente.getText());
+                chamadosFechados.setProblema(txtProblema.getText());
                 chamadosFechados.setMensagemFechamento(txtMensEncerramento.getText());
                 chamadosFechados.setStatus((String) comboStatus.getSelectedItem());
                 chamadosFechados.setDataFechamento(txtData.getText());
@@ -559,6 +580,7 @@ public class TelaFecharChamado extends javax.swing.JFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -572,6 +594,7 @@ public class TelaFecharChamado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTabbedPane jtChamadosFechados;
     private javax.swing.JTable tabelaFechamentoChamados;
@@ -579,9 +602,10 @@ public class TelaFecharChamado extends javax.swing.JFrame {
     private javax.swing.JTextField txtConsultaNChamado;
     private javax.swing.JTextField txtContrato;
     private javax.swing.JFormattedTextField txtData;
-    private javax.swing.JTextField txtMensEncerramento;
+    private javax.swing.JTextArea txtMensEncerramento;
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNumeroChamado;
+    private javax.swing.JTextField txtProblema;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -18,9 +18,10 @@ public class TabelaModeloChamadosFechados extends AbstractTableModel{
     public static final int COLUNA_NUMERO_CHAMADO = 0;
     public static final int COLUNA_CONTRATO = 1;
     public static final int COLUNA_NOME_CLIENTE = 2;
-    public static final int COLUNA_MENSSAGEM = 3;
-    public static final int COLUNA_STATUS = 4;
-    public static final int COLUNA_DATA = 5;
+    public static final int COLUNA_PROBLEMA = 3;
+    public static final int COLUNA_MENSSAGEM = 4;
+    public static final int COLUNA_STATUS = 5;
+    public static final int COLUNA_DATA = 6;
     public ArrayList<ChamadosFechados>lista;
     
     public TabelaModeloChamadosFechados(ArrayList<ChamadosFechados>lista){
@@ -34,7 +35,7 @@ public class TabelaModeloChamadosFechados extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -43,6 +44,7 @@ public class TabelaModeloChamadosFechados extends AbstractTableModel{
         if (coluna == COLUNA_NUMERO_CHAMADO)return chamadosFechados.getNumeroChamado();
         if (coluna == COLUNA_CONTRATO) return chamadosFechados.getContrato();
         if (coluna == COLUNA_NOME_CLIENTE) return chamadosFechados.getNomeCliente();
+        if (coluna == COLUNA_PROBLEMA) return chamadosFechados.getProblema();
         if (coluna == COLUNA_MENSSAGEM) return chamadosFechados.getMensagemFechamento();
         if (coluna == COLUNA_STATUS) return chamadosFechados.getStatus();
         if (coluna == COLUNA_DATA) return chamadosFechados.getDataFechamento();
@@ -54,6 +56,7 @@ public class TabelaModeloChamadosFechados extends AbstractTableModel{
         if (coluna == COLUNA_NUMERO_CHAMADO) return "Número do chamado";
         if (coluna == COLUNA_CONTRATO) return "Contrato";
         if (coluna == COLUNA_NOME_CLIENTE) return "Nome do Cliente";
+        if (coluna == COLUNA_PROBLEMA) return "Problema";
         if (coluna == COLUNA_MENSSAGEM) return "Mensagem de Fechamento";
         if (coluna == COLUNA_STATUS) return "Status";
         if (coluna == COLUNA_DATA) return "Data de Fechamento";

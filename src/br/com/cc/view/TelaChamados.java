@@ -717,7 +717,7 @@ public class TelaChamados extends javax.swing.JFrame {
         if (enviar == null) {
             enviar = new TelaFecharChamado();
             enviar.setVisible(true);
-            enviar.receberDadosChamados(txtNumeroChamado.getText(), txtContrato.getText(), txtNomeCliente.getText());
+            enviar.receberDadosChamados(txtNumeroChamado.getText(), txtContrato.getText(), txtNomeCliente.getText(), txtProblema.getText());
             this.dispose();
         }
     }//GEN-LAST:event_btFecharChamadoActionPerformed
